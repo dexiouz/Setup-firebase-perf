@@ -158,8 +158,8 @@ $ npx react-native run-android
 and here's a new error
 ```sh
 > Configure project :react-native-firebase_analytics
-:react-native-firebase_analytics package.json found at /Users/chidera/Documents/activeCode/ShreddyApp/node_modules/@react-native-firebase/analytics/package.json
-:react-native-firebase_app package.json found at /Users/chidera/Documents/activeCode/ShreddyApp/node_modules/@react-native-firebase/app/package.json
+:react-native-firebase_analytics package.json found at /Users/chidera/Documents/activeCode/TestApp/node_modules/@react-native-firebase/analytics/package.json
+:react-native-firebase_app package.json found at /Users/chidera/Documents/activeCode/TestApp/node_modules/@react-native-firebase/app/package.json
 ReactNativeFirebase WARNING: NPM package '@react-native-firebase/analytics' depends on '@react-native-firebase/app' v10.4.0 but found v12.0.0, this might cause build issues or runtime crashes.
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
@@ -171,7 +171,7 @@ FAILURE: Build completed with 2 failures.
 1: Task failed with an exception.
 -----------
 * Where:
-Build file '/Users/chidera/Documents/activeCode/ShreddyApp/node_modules/@react-native-firebase/analytics/android/build.gradle' line: 71
+Build file '/Users/chidera/Documents/activeCode/TestApp/node_modules/@react-native-firebase/analytics/android/build.gradle' line: 71
 
 * What went wrong:
 A problem occurred evaluating project ':react-native-firebase_analytics'.
