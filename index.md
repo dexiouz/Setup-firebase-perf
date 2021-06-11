@@ -1,4 +1,5 @@
-# Setting up firebase performance monitor
+# # Current progress of Setting up firebase performance monitor
+
 
 First thing is to ensure that `@react-native-firebase/app` is installed and set up;
 
@@ -155,4 +156,51 @@ $ npx react-native run-android
 ```
 
 and here's a new error
+```sh
+> Configure project :react-native-firebase_analytics
+:react-native-firebase_analytics package.json found at /Users/chidera/Documents/activeCode/ShreddyApp/node_modules/@react-native-firebase/analytics/package.json
+:react-native-firebase_app package.json found at /Users/chidera/Documents/activeCode/ShreddyApp/node_modules/@react-native-firebase/app/package.json
+ReactNativeFirebase WARNING: NPM package '@react-native-firebase/analytics' depends on '@react-native-firebase/app' v10.4.0 but found v12.0.0, this might cause build issues or runtime crashes.
 
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/6.5/userguide/command_line_interface.html#sec:command_line_warnings
+
+FAILURE: Build completed with 2 failures.
+
+1: Task failed with an exception.
+-----------
+* Where:
+Build file '/Users/chidera/Documents/activeCode/ShreddyApp/node_modules/@react-native-firebase/analytics/android/build.gradle' line: 71
+
+* What went wrong:
+A problem occurred evaluating project ':react-native-firebase_analytics'.
+> No signature of method: firebase_json_8dc0dzjhhantm4hghu09dnzn9$_run_closure1.doCall() is applicable for argument types: (String) values: [analytics_auto_collection_enabled]
+  Possible solutions: doCall(java.lang.Object, java.lang.Object), findAll(), findAll(), isCase(java.lang.Object), isCase(java.lang.Object)
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+==============================================================================
+
+2: Task failed with an exception.
+-----------
+* What went wrong:
+A problem occurred configuring project ':react-native-firebase_analytics'.
+> compileSdkVersion is not specified. Please add it to build.gradle
+```
+
+*Key error points are at:*
+
+> ReactNativeFirebase WARNING: NPM package '@react-native-firebase/analytics' depends on '@react-native-firebase/app' v10.4.0 but found v12.0.0, this might cause build issues or runtime crashes.
+
+> * What went wrong:
+A problem occurred evaluating project ':react-native-firebase_analytics'.
+> No signature of method: firebase_json_8dc0dzjhhantm4hghu09dnzn9$_run_closure1.doCall() is applicable for argument types: (String) values: [analytics_auto_collection_enabled]
+  Possible solutions: doCall(java.lang.Object, java.lang.Object), findAll(), findAll(), isCase(java.lang.Object), isCase(java.lang.Object)
+
+> * What went wrong:
+A problem occurred configuring project ':react-native-firebase_analytics'.
+compileSdkVersion is not specified. Please add it to build.gradle;
+
+
+I need to fix this before proceeding to set complete perf monitor set up for android. Any one got an idea? I guess it's related to `firebase analytics`.
