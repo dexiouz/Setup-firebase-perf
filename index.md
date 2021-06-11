@@ -204,3 +204,49 @@ compileSdkVersion is not specified. Please add it to build.gradle;
 
 
 I need to fix this before proceeding to set complete perf monitor set up for android. Any one got an idea? I guess it's related to `firebase analytics`.
+
+This is a hard one. So after a lot looking around in github issues and stackoverflow without success, I decided to follow my guts: "Delete the current `"@react-native-firebase/analytics": "^10.4.0"`, and reinstall latest firebase analytics with
+
+```sh
+$ npm i @react-native-firebase/analytics
+```
+
+This pushed the version to `12.0.0`.
+
+I then ran 
+```
+cd android && ./gradlew clean
+```
+
+Then 
+```
+$ cd .. && yarn android
+```
+
+I got a successful android build.
+
+I also ran `npx pod-install` and `yarn ios` and got a successful ios build.
+
+To contine performance set up for android, go to `/android/build.gradle` and add 
+```sh
+buildscript {
+    dependencies {
+        // ...
+        classpath 'com.google.firebase:perf-plugin:1.4.0'
+    }
+```
+
+Also go to the top of `/android/app/build.gradle` file and add 
+```sh
+apply plugin: 'com.google.firebase.firebase-perf'
+```
+
+Finally rebuild android
+```sh
+$ yarn android
+```
+
+And everything works fine and in the firebase console, I could see the android performance metric.
+
+> Obviousely, firebase is extremely sensitive when it comes to versions.
+
