@@ -1,4 +1,4 @@
-# # Current progress of Setting up firebase performance monitor
+# Setting up firebase performance monitor
 
 
 First thing is to ensure that `@react-native-firebase/app` is installed and set up;
@@ -21,7 +21,7 @@ npm ERR! node_modules/@react-native-firebase/app
 npm ERR!   @react-native-firebase/app@"^10.4.0" from the root project
 npm ERR! 
 npm ERR! Could not resolve dependency:
-npm ERR! peer @react-native-firebase/app@"12.0.0" from @react-native-firebase/perf@12.0.0
+npm ERR! peer @react-native-firebase/app@"12.1.0" from @react-native-firebase/perf@12.1.0
 npm ERR! node_modules/@react-native-firebase/perf
 npm ERR!   @react-native-firebase/perf@"*" from the root project
 npm ERR! 
@@ -32,10 +32,10 @@ npm ERR!
 npm ERR! See /Users/chidera/.npm/eresolve-report.txt for a full report.
 
 npm ERR! A complete log of this run can be found in:
-npm ERR!     /Users/chidera/.npm/_logs/2021-06-11T14_36_48_736Z-debug.log
+npm ERR!     /Users/chidera/.npm/_logs/2021-06-12T09_36_35_672Z-debug.log
 ```
 
-Technically, `@react-native-firebase/app` is at `v10.4.0` but `@react-native-firebase/perf` needs `@react-native-firebase/app` to be at `v12.0.0`. 
+Technically, `@react-native-firebase/app` is at `v10.4.0` but `@react-native-firebase/perf` needs `@react-native-firebase/app` to be at `v12.1.0`. 
 
 Because of posibility of breaking changes and to override the error, I used 
 ```sh
@@ -52,27 +52,27 @@ $ cd ios/ && pod install
 which I did and got this: 
 ```sh
 ...
-Installing RNFBPerf 12.0.0
+Installing RNFBPerf 12.1.0
 Installing RNFBStorage 10.4.0
 Installing nanopb 2.30906.0 (was 2.30908.0)
 [!] The 'Pods-Shreddy' target has libraries with conflicting names: libgoogleutilities.a.
 
-[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.0.0 but found v10.4.0, this might cause build issues or runtime crashes.
+[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.1.0 but found v10.4.0, this might cause build issues or runtime crashes.
 
-[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.0.0 but found v10.4.0, this might cause build issues or runtime crashes.
+[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.1.0 but found v10.4.0, this might cause build issues or runtime crashes.
 
-[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.0.0 but found v10.4.0, this might cause build issues or runtime crashes.
+[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.1.0 but found v10.4.0, this might cause build issues or runtime crashes.
 ```
 
 After a lot of digging around, I reckoned that the simplest solution is the one looking at me right now, which is 
 ```sh
-[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.0.0 but found v10.4.0, this might cause build issues or runtime crashes.
+[!] NPM package '@react-native-firebase/perf' depends on '@react-native-firebase/app' v12.1.0 but found v10.4.0, this might cause build issues or runtime crashes.
 ```
-In essence, upgrade `'@react-native-firebase/app'` to `v12.0.0`
+In essence, upgrade `'@react-native-firebase/app'` to `v12.1.0`
 
 So I went ahead and did it
 ```sh
-$ npm install @react-native-firebase/app@12.0.0
+$ npm install @react-native-firebase/app@12.1.0
 ```
 
 After installing, I had to run `pod install`, obviously with a `--repo-update` because of this kind of error 
@@ -83,7 +83,7 @@ You have either:
     Firebase/CoreOnly (= 7.3.0, ~> 7.3.0)
 
   In Podfile:
-    RNFBApp (from `../node_modules/@react-native-firebase/app`) was resolved to 12.0.0, which depends on
+    RNFBApp (from `../node_modules/@react-native-firebase/app`) was resolved to 12.1.0, which depends on
       Firebase/CoreOnly (= 8.0.0)
 
 
@@ -107,8 +107,8 @@ The pod install --repo-update threw another error
     Firebase/CoreOnly (= 7.3.0, ~> 7.3.0)
 
   In Podfile:
-    RNFBApp (from `../node_modules/@react-native-firebase/app`) was resolved to 12.0.0, which depends on
-      Firebase/CoreOnly (= 8.0.0)
+    RNFBApp (from `../node_modules/@react-native-firebase/app`) was resolved to 12.1.0, which depends on
+      Firebase/CoreOnly (= 8.1.1)
 
 
 You have either:
@@ -116,7 +116,7 @@ You have either:
    You should run `pod update Firebase/CoreOnly` to apply changes you've made.
 ```
 
-After some poking, I found out that `Firebase/CoreOnly` previously at `v7.3.0` needs to be upgraded to `v8.0.0` because the new `@react-native-firebase/app@12.0.0` depends on it.
+After some poking, I found out that `Firebase/CoreOnly` previously at `v7.3.0` needs to be upgraded to `v8.1.1` because the new `@react-native-firebase/app@12.1.0` depends on it.
 
 > Funny how that this error was contained in the previous error but I didn't see it. Haunted!
 
@@ -158,9 +158,9 @@ $ npx react-native run-android
 and here's a new error
 ```sh
 > Configure project :react-native-firebase_analytics
-:react-native-firebase_analytics package.json found at /Users/chidera/Documents/activeCode/TestApp/node_modules/@react-native-firebase/analytics/package.json
-:react-native-firebase_app package.json found at /Users/chidera/Documents/activeCode/TestApp/node_modules/@react-native-firebase/app/package.json
-ReactNativeFirebase WARNING: NPM package '@react-native-firebase/analytics' depends on '@react-native-firebase/app' v10.4.0 but found v12.0.0, this might cause build issues or runtime crashes.
+:react-native-firebase_analytics package.json found at /Users/chidera/Desktop/ShreddyApp/node_modules/@react-native-firebase/analytics/package.json
+:react-native-firebase_app package.json found at /Users/chidera/Desktop/ShreddyApp/node_modules/@react-native-firebase/app/package.json
+ReactNativeFirebase WARNING: NPM package '@react-native-firebase/analytics' depends on '@react-native-firebase/app' v10.4.0 but found v12.1.0, this might cause build issues or runtime crashes.
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
 Use '--warning-mode all' to show the individual deprecation warnings.
@@ -171,11 +171,11 @@ FAILURE: Build completed with 2 failures.
 1: Task failed with an exception.
 -----------
 * Where:
-Build file '/Users/chidera/Documents/activeCode/TestApp/node_modules/@react-native-firebase/analytics/android/build.gradle' line: 71
+Build file '/Users/chidera/Desktop/ShreddyApp/node_modules/@react-native-firebase/analytics/android/build.gradle' line: 71
 
 * What went wrong:
 A problem occurred evaluating project ':react-native-firebase_analytics'.
-> No signature of method: firebase_json_8dc0dzjhhantm4hghu09dnzn9$_run_closure1.doCall() is applicable for argument types: (String) values: [analytics_auto_collection_enabled]
+> No signature of method: firebase_json_224ie9k6lcamcbij9e5up8mld$_run_closure1.doCall() is applicable for argument types: (String) values: [analytics_auto_collection_enabled]
   Possible solutions: doCall(java.lang.Object, java.lang.Object), findAll(), findAll(), isCase(java.lang.Object), isCase(java.lang.Object)
 
 * Try:
@@ -191,7 +191,7 @@ A problem occurred configuring project ':react-native-firebase_analytics'.
 
 *Key error points are at:*
 
-> ReactNativeFirebase WARNING: NPM package '@react-native-firebase/analytics' depends on '@react-native-firebase/app' v10.4.0 but found v12.0.0, this might cause build issues or runtime crashes.
+> ReactNativeFirebase WARNING: NPM package '@react-native-firebase/analytics' depends on '@react-native-firebase/app' v10.4.0 but found v12.1.0, this might cause build issues or runtime crashes.
 
 > * What went wrong:
 A problem occurred evaluating project ':react-native-firebase_analytics'.
@@ -205,13 +205,13 @@ compileSdkVersion is not specified. Please add it to build.gradle;
 
 I need to fix this before proceeding to set up performance monitor for android. Any one got an idea? I guess it's related to `firebase analytics`.
 
-This is a hard one. So after a lot of looking around github issues and stackoverflow without success, I decided to: Delete the current `"@react-native-firebase/analytics": "^10.4.0"`, and reinstall latest firebase analytics with
+This is a hard one. So after a lot of looking around github issues and stackoverflow without success, I decided to: Delete the current `"@react-native-firebase/analytics": "^10.4.0"` from `package.json` and reinstall latest firebase analytics with
 
 ```sh
 $ npm i @react-native-firebase/analytics
 ```
 
-This pushed the version to `12.0.0`.
+This pushed the version to `12.1.0`.
 
 I then ran 
 ```
